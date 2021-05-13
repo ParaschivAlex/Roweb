@@ -12,7 +12,6 @@ namespace WebApplication1.Controllers.CategoryControllers
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryRepository _repo;
-        //private readonly ShopContext db;
         public CategoryController(ICategoryRepository repo)
         {
             _repo = repo;
@@ -28,19 +27,9 @@ namespace WebApplication1.Controllers.CategoryControllers
         [HttpGet("{id}")]
         public ActionResult<Category> GetCategory(int id)
 		{
-            /*var category = _repo.GetCategories().FirstOrDefault(x => x.CategoryID == id);
-            if(category == null)
-			{
-                return NotFound();
-			}
-            return category;*/
-
-            //var dbCategory = _repo.Get(id);
-            //return new CategoriesRepresentation(dbCategory);
-
             return _repo.Get(id);
-
         }
+
         [HttpPost]
         public ActionResult<Category> PostCategory(Category category)
 		{
