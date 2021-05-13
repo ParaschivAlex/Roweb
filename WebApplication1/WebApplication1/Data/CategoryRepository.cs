@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using WebApplication1.Business;
 using WebApplication1.Domain;
@@ -17,6 +18,11 @@ namespace WebApplication1.Data
             return _context.Categories.ToList();
         }
 
+        public Category Get (int id)
+		{
+            return _context.Categories.Find(id);
+		}
+
         public Category Insert(Category category)
         {
             _context.Categories.Add(category);
@@ -25,20 +31,18 @@ namespace WebApplication1.Data
             return category;
         }
 
-        public Category Edit(Category category, int id)
-		{
-            Category categ = _context.Categories.Find(id);
-            categ.Name = category.Name;
+        public Category Update(Category category)
+         {
+            _context.Entry(category).State = EntityState.Modified;
             _context.SaveChanges();
-            return categ;
-        }
 
-        public Category Delete(int id)
-        {
-            Category categ = _context.Categories.Find(id);
-            _context.Categories.Remove(categ);
-            _context.SaveChanges();
-            return categ;
+            return category;
         }
-    }
+         public void Delete(int id)
+         {
+            var categoryToDelete = _context.Categories.Find(id);
+            _context.Categories.Remove(categoryToDelete);
+            _context.SaveChanges();
+         }
+	}
 }

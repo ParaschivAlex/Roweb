@@ -6,8 +6,9 @@ namespace WebApplication1.Business
     public interface ICategoryRepository
     {
         List<Category> GetCategories();
+        Category Get(int id);
         Category Insert(Category category);
-        Category Edit(Category category, int id);
-        Category Delete(int id);
+        Category Update(Category category);
+        void Delete(int id);
     }
 }
