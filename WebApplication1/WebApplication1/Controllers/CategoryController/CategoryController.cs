@@ -37,11 +37,15 @@ namespace WebApplication1.Controllers.CategoryControllers
             return CreatedAtAction(nameof(GetAll), new { id = newCategory.CategoryID }, newCategory);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public ActionResult<Category> PutCategory(Category category, int id)
 		{
+            var categ = _repo.Get(id);
+            if (categ == null)
+            {
+                return NotFound();
+            }
             _repo.Update(category);
-
             return NoContent();
         }
         

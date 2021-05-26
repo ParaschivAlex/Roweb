@@ -33,10 +33,18 @@ namespace WebApplication1.Data
 
         public Category Update(Category category)
          {
-            _context.Entry(category).State = EntityState.Modified;
-            _context.SaveChanges();
+            var categ = _context.Categories.FirstOrDefault(c => c.CategoryID == category.CategoryID);
 
-            return category;
+            if (categ != null)
+            {
+                categ.Name = category.Name;
+                categ.Products = category.Products;
+
+                _context.SaveChanges();
+
+                return categ;
+            }
+            return null;
         }
          public void Delete(int id)
          {
