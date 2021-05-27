@@ -36,7 +36,7 @@ namespace WebApplication1
                                                options.UseSqlServer(connectionString));
 
             services.AddTransient<ICategoryRepository, CategoryRepository>();
-
+            services.AddTransient<IProductRepository, ProductRepository>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApplication1", Version = "v1" });
