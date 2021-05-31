@@ -8,7 +8,7 @@ namespace WebApplication1.Models
 {
 	public class ProductRepresentation
 	{
-        public ProductRepresentation(int prodID, string name, string desc, decimal prc, decimal baseprc, string img, int categid)
+        public ProductRepresentation(int prodID, string name, string desc, decimal prc, decimal baseprc, string img, int categID)
         {
             this.ProductID = prodID;
             this.Name = name;
@@ -16,7 +16,7 @@ namespace WebApplication1.Models
             this.Price = prc;
             this.BasePrice = baseprc;
             this.Image = img;
-            this.CategoryID = categid;
+            this.CategoryID = categID;
         }
 
         [JsonProperty(PropertyName = "productId")]
