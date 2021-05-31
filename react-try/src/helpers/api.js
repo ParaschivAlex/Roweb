@@ -5,12 +5,12 @@ import Product from "../models/product";
 const ApiClient = {
   get: (url, headers = {}) => {
     return ApiClient.makeRequest(`${API_ROUTE}/${url}`, "GET", {}, headers);},
-  post: (url, headers = {}) => {
-    return ApiClient.makeRequest(`${API_ROUTE}/${url}`, "POST", {}, headers);},
-  put: (url, headers = {}) => {
-    return ApiClient.makeRequest(`${API_ROUTE}/${url}`, "PUT", {}, headers);},
-  delete: (url, headers = {}) => {
-    return ApiClient.makeRequest(`${API_ROUTE}/${url}`, "DELETE", {}, headers);
+  post: (url, id, data) => {
+    return ApiClient.makeRequest(`${API_ROUTE}/${url}`, "POST", {}, data);},
+  put: (url, id, data) => {
+    return ApiClient.makeRequest(`${API_ROUTE}/${url}`, "PUT", id, data);},
+  delete: (url, id, headers = {}) => {
+    return ApiClient.makeRequest(`${API_ROUTE}/${url}`, "DELETE", id, headers);
   },
   makeRequest: async (url, type, params = {}, headers = {}) => {
     try {
@@ -38,22 +38,22 @@ const ProductCategories = {
     return categories.map((c) => new Category(c.categoryId, c.name));
   },
 
-  all: async () => {
-    const { categories } = await ApiClient.post("category");
-    // console.log(categories);
-    return categories.map((c) => new Category(c.categoryId, c.name));
+  GetCateg: async(id) => {
+    return await ApiClient.get("category/{id}")
   },
 
-  all: async () => {
-    const { categories } = await ApiClient.put("category");
+  PostCateg: async (headers) => {
+    return await ApiClient.post("category", headers);
     // console.log(categories);
-    return categories.map((c) => new Category(c.categoryId, c.name));
+    //return categories.map((c) => new Category(c.categoryId, c.name));
   },
 
-  all: async () => {
-    const { categories } = await ApiClient.delete("category");
-    // console.log(categories);
-    return categories.map((c) => new Category(c.categoryId, c.name));
+  UpdateCateg: async (id, headers) => {
+    return await ApiClient.put("category/{id}", headers);
+  },
+
+  DeleteCateg: async () => {
+    return await ApiClient.delete("category{id}");
   },
 };
 
@@ -64,25 +64,25 @@ const Products = {
     return products.map((p) => new Product(p.productId, p.name, p.description, p.price, p.baseprice, p.image, p.categoryId));
   },
 
-  all: async () => {
-    const { products } = await ApiClient.post("product");
-    console.log(products);
-    return products.map((p) => new Product(p.productId, p.name, p.description, p.price, p.baseprice, p.image, p.categoryId));
+  GetProduct: async(id) => {
+    return await ApiClient.get("product/{id}")
   },
 
-  all: async () => {
-    const { products } = await ApiClient.put("product");
-    console.log(products);
-    return products.map((p) => new Product(p.productId, p.name, p.description, p.price, p.baseprice, p.image, p.categoryId));
+  PostProduct: async (headers) => {
+    return await ApiClient.post("product", headers);
+    // console.log(categories);
+    //return categories.map((c) => new Category(c.categoryId, c.name));
   },
 
-  all: async () => {
-    const { products } = await ApiClient.delete("product");
-    console.log(products);
-    return products.map((p) => new Product(p.productId, p.name, p.description, p.price, p.baseprice, p.image, p.categoryId));
+  UpdateProduct: async (id, headers) => {
+    return await ApiClient.put("product/{id}", headers);
+  },
+
+  DeleteProduct: async () => {
+    return await ApiClient.delete("product{id}");
   },
 };
-
+/*
 const CreateProduct = (data, onSuccess) => dispatch => {
   data = formateData(data)
   api.dCandidate().create(data)
@@ -158,15 +158,9 @@ const DeleteCategory = (id, onSuccess) => dispatch => {
       })
       .catch(err => console.log(err))
 }
-
+*/
 const ApiHelper = {
   ProductCategories,
   Products,
-  DeleteProduct,
-  DeleteCategory,
-  UpdateProduct,
-  UpdateCategory,
-  CreateProduct,
-  CreateCategory,
 };
 export default ApiHelper;
